@@ -32,8 +32,8 @@ class PurchasesStatusIcon: UIView {
         uiImageView.setCenterAnchorToCenterOfSuperview(axis: .vertical)
     }
     
-    func setImage(imageName: IconNamesEnum) {
-        let image = UIImage(systemName: imageName.rawValue)
+    func setImage(imageName: String) {
+        let image = UIImage(systemName: imageName)
         uiImageView.image = image ?? UIImage()
     }
 }

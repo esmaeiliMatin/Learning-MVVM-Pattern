@@ -9,12 +9,14 @@ import UIKit
 
 class OrderListImage: UIView {
     
+    let preferredSize = 80.0
+    
     lazy var imageView: UIImageView = {
         let view = UIImageView()
         view.layer.cornerRadius = 18
         view.layer.borderWidth = 1.5
         view.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1).cgColor
-        view.setSize(width: 80, height: 80)
+        view.setSize(width: preferredSize, height: preferredSize)
         return view
     }()
     
@@ -40,7 +42,7 @@ class OrderListImage: UIView {
         super.init(frame: frame)
     }
     
-    init(frame: CGRect, imageName: String, count: String) {
+    init(frame: CGRect, imageName: String, count: Int) {
         super.init(frame: frame)
         
         imageView.image = UIImage(named: imageName)
@@ -48,7 +50,7 @@ class OrderListImage: UIView {
         imageView.setCenterAnchorToCenterOfSuperview(axis: .horizontal)
         imageView.setCenterAnchorToCenterOfSuperview(axis: .vertical)
         
-        countOfProduct.text = "X" + count
+        countOfProduct.text = "X" + String(count)
         addSubview(countOfProduct)
         countOfProduct.setCenterAnchorToCenterOfSuperview(axis: .horizontal)
         countOfProduct.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -10).isActive = true

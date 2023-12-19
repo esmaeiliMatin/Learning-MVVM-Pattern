@@ -40,4 +40,17 @@ extension ApplicationRepositoryProtocol {
         }
         return []
     }
+    func decodedDataObject<T: Decodable>(resourceName: String) -> T? {
+        if let productsData = readLocalJSONFile(forName: resourceName) {
+            do {
+                let decoder = JSONDecoder()
+                let decodedObjects = try decoder.decode(T.self, from: productsData)
+                let decodedOjectsArray: T = decodedObjects
+                return decodedOjectsArray
+            } catch {
+                print("Error decoding JSON: \(error)")
+            }
+        }
+        return nil
+    }
 }

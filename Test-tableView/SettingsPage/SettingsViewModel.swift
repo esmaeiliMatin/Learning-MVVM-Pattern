@@ -13,6 +13,7 @@ class SettingsViewModel {
     private let repository: SettingsRepository
     public private(set) var dataset: [SettingModel] = []
     
+    // MARK: - init
     init(repository: SettingsRepository) {
         self.repository = repository
         

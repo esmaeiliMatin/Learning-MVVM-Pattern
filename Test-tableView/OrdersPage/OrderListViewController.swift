@@ -11,9 +11,12 @@ class OrderListViewController: BaseViewController, UITableViewDataSource, UITabl
     
     // MARK: - Property
     lazy var cellReuseIdentifier = "CustomCell"
-    lazy var heightForRowAt = 330.0
-    lazy var orderViewModel = OrderViewModel()
-    lazy var orders = orderViewModel.orders
+    lazy var heightForRowAt = 330.0   //330
+    lazy var vm: OrderViewModel = {
+       let repository = OrderRepository()
+        let vm = OrderViewModel(repository: repository)
+        return vm
+    }()
     lazy var navigationTitle = "My Order"
     
     lazy var tableView: UITableView = {
@@ -39,6 +42,7 @@ class OrderListViewController: BaseViewController, UITableViewDataSource, UITabl
         segmentedView.setSize(height: 40)
         segmentedView.alignAllEdgesWithSuperview(side: .top, .init(top: 96, left: 0, bottom: 0, right: 0))
         segmentedView.alignAllEdgesWithSuperview(side: .leadingAndTrailing, .init(top: 0, left: 0, bottom: 0, right: 0))
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,13 +55,13 @@ class OrderListViewController: BaseViewController, UITableViewDataSource, UITabl
     
     // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return orderViewModel.orders.count
+        return vm.dataset.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier, for: indexPath) as! OrderCell
         
-        let order = orders[indexPath.row]
+        let order = vm.dataset[indexPath.row]
         cell.configurate(order: order)
         return cell
     }

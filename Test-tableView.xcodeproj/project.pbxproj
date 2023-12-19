@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		942923F32B0E314B000D421A /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942923F22B0E314A000D421A /* Order.swift */; };
+		942923F32B0E314B000D421A /* OrderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942923F22B0E314A000D421A /* OrderList.swift */; };
 		942F51E82B021407004CDC58 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942F51E72B021407004CDC58 /* AppDelegate.swift */; };
 		942F51F12B021408004CDC58 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 942F51F02B021408004CDC58 /* Assets.xcassets */; };
 		942F52002B025359004CDC58 /* MainTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942F51FF2B025359004CDC58 /* MainTabBar.swift */; };
@@ -39,7 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		942923F22B0E314A000D421A /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		942923F22B0E314A000D421A /* OrderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderList.swift; sourceTree = "<group>"; };
 		942F51E42B021407004CDC58 /* Test-tableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Test-tableView.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		942F51E72B021407004CDC58 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		942F51F02B021408004CDC58 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -109,7 +109,6 @@
 				942F51E72B021407004CDC58 /* AppDelegate.swift */,
 				94323EF92B29F4F6007B1D71 /* Base */,
 				949700062B18700B009F64A9 /* Layout&Positions */,
-				94E72A462B283CB40020CF88 /* BaseViewControllers */,
 				94DD6ACF2B27243000A386D4 /* MainTabbar */,
 				9497000B2B18909D009F64A9 /* OrdersPage */,
 				9440A5232B1371A400760D14 /* SettingsPage */,
@@ -129,6 +128,7 @@
 		94323EF92B29F4F6007B1D71 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				94E72A462B283CB40020CF88 /* BaseViewControllers */,
 				94323EFA2B29F4FC007B1D71 /* Repository */,
 			);
 			path = Base;
@@ -177,7 +177,7 @@
 		949700082B1870B7009F64A9 /* OrderLogic */ = {
 			isa = PBXGroup;
 			children = (
-				942923F22B0E314A000D421A /* Order.swift */,
+				942923F22B0E314A000D421A /* OrderList.swift */,
 				94BA6C182B04A393005B53BB /* OrderStatusEnum.swift */,
 			);
 			path = OrderLogic;
@@ -309,7 +309,7 @@
 				94BA6C192B04A393005B53BB /* OrderStatusEnum.swift in Sources */,
 				9448C0832B1F5EA3009D22DC /* BaseSettingsRow.swift in Sources */,
 				949DC5322B09E9A0000D6E91 /* OrderHeaderView.swift in Sources */,
-				942923F32B0E314B000D421A /* Order.swift in Sources */,
+				942923F32B0E314B000D421A /* OrderList.swift in Sources */,
 				9448C07C2B1F321C009D22DC /* BaseViewController.swift in Sources */,
 				9448C07F2B1F48E3009D22DC /* IconLabelSwitchRow.swift in Sources */,
 				94BA6C1B2B04CE3E005B53BB /* PurchasesStatusIcon.swift in Sources */,

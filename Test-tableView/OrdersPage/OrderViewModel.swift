@@ -10,10 +10,17 @@ import Foundation
 class OrderViewModel {
     
     // MARK: - Properties
-    lazy var orderRepository = OrderRepository()
-    lazy var orders: [Order] = []
-    
-    init() {
-        orders = orderRepository.decodedData()
+    private let repository: OrderRepository
+    public private(set) var dataset: [Order] = []
+
+    // MARK: - init
+    init(repository: OrderRepository) {
+        self.repository = repository
+        
+        fetchData()
+    }
+    func fetchData() {
+        dataset = repository.fetchData().order
+     
     }
 }
