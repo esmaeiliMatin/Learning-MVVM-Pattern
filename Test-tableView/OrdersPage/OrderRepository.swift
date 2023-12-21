@@ -12,6 +12,6 @@ class OrderRepository: ApplicationRepositoryProtocol {
     let resourceName = "OrderUIViewModelData"
     
     func fetchData() -> OrderList {
-        decodedDataObject(resourceName: resourceName)!
+        decodedOrderData(resourceName: resourceName)!
     }
 }

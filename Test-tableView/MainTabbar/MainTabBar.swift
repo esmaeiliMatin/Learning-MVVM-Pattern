@@ -13,12 +13,14 @@ class MainTabBar: UITabBarController, UITabBarControllerDelegate {
         tabBar.backgroundColor = .white
         
         let homePage = UIViewController()
+        homePage.view.backgroundColor = .white
         homePage.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         
         let orderListPage = OrderListViewController()
         orderListPage.tabBarItem = UITabBarItem(title: "Orders", image: UIImage(systemName: "list.dash.header.rectangle"), tag: 1)
         
         let cartPage = UIViewController()
+        cartPage.view.backgroundColor = .white
         cartPage.tabBarItem = UITabBarItem(title: "Cart", image: UIImage(systemName: "cart"), tag: 2)
         
         let settingsPage = SettingsViewController()
@@ -28,10 +30,10 @@ class MainTabBar: UITabBarController, UITabBarControllerDelegate {
         
         let appearance = UITabBarItem.appearance()
         let attributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.boldSystemFont(ofSize: 14.0)
+            .font: UIFont.boldSystemFont(ofSize: 12.0)
         ]
-        self.tabBarController?.tabBar.shadowImage = UIImage()
-        self.tabBarController?.tabBar.backgroundImage = UIImage()
+//        self.tabBarController?.tabBar.shadowImage = UIImage()
+//        self.tabBarController?.tabBar.backgroundImage = UIImage()
         appearance.setTitleTextAttributes(attributes, for: .normal)
         selectedIndex = 1
         

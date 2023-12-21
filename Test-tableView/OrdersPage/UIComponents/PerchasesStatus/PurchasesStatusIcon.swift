@@ -8,7 +8,12 @@ class PurchasesStatusIcon: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        setupView()
+        backgroundColor = .clear
+        uiImageView.backgroundColor = .clear
+        
+        addSubview(uiImageView)
+        uiImageView.setCenterAnchorToCenterOfSuperview(axis: .horizontal)
+        uiImageView.setCenterAnchorToCenterOfSuperview(axis: .vertical)
     }
     
     required init?(coder: NSCoder) {
@@ -21,15 +26,6 @@ class PurchasesStatusIcon: UIView {
         strokeColor.setStroke()
         circlePath.lineWidth = 1.0
         circlePath.stroke()
-    }
-    
-    private func setupView() {
-        backgroundColor = .white
-        uiImageView.backgroundColor = .white
-        
-        addSubview(uiImageView)
-        uiImageView.setCenterAnchorToCenterOfSuperview(axis: .horizontal)
-        uiImageView.setCenterAnchorToCenterOfSuperview(axis: .vertical)
     }
     
     func setImage(imageName: String) {

@@ -77,19 +77,21 @@ extension UIView {
         return constraints
     }
     
-    func setOneSideConstraints(subviewSide: NSLayoutXAxisAnchor, superviewSide: NSLayoutXAxisAnchor, constant: CGFloat) -> [NSLayoutConstraint] {
-        guard let superview else { fatalError("Not allowed without setting superview first!!") }
-
-        translatesAutoresizingMaskIntoConstraints = false
-        
-        var constraints: [NSLayoutConstraint] = []
-        
-        constraints.append(subviewSide.constraint(equalTo: superview.leadingAnchor, constant: constant))
-        
-        NSLayoutConstraint.activate(constraints)
-        
-        return constraints
-    }
+    // TODO: write this function later and use it
+    
+//    func setOneSideConstraints(subviewSide: NSLayoutXAxisAnchor, superviewSide: NSLayoutXAxisAnchor, constant: CGFloat) -> [NSLayoutConstraint] {
+//        guard let superview else { fatalError("Not allowed without setting superview first!!") }
+//
+//        translatesAutoresizingMaskIntoConstraints = false
+//
+//        var constraints: [NSLayoutConstraint] = []
+//
+//        constraints.append(subviewSide.constraint(equalTo: superview.leadingAnchor, constant: constant))
+//
+//        NSLayoutConstraint.activate(constraints)
+//
+//        return constraints
+//    }
     
     @discardableResult
     func setCenterAnchorToCenterOfSuperview(axis: NSLayoutConstraint.Axis) -> [NSLayoutConstraint] {

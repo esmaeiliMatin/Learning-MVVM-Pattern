@@ -9,16 +9,14 @@ import UIKit
 
 class OrderCell: UITableViewCell {
     
-    // MARK: - Property
-    lazy var view: UIView = {
+    // MARK: - Properties
+    lazy var separatorView: UIView = {
         let view = UIView()
         return view
     }()
     
-    lazy var statusLabel: UILabel = {
-        let view = UILabel()
-        view.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        view.backgroundColor = .white
+    lazy var statusIconLabel: PurchasesStatusIconLabel = {
+       let view = PurchasesStatusIconLabel()
         return view
     }()
     
@@ -31,21 +29,19 @@ class OrderCell: UITableViewCell {
     }()
     
     lazy var orderIDLabel: PurchasesInfoLabels = {
-        let view = PurchasesInfoLabels(frame: .zero, staticText: "Order ID", dynamicText: "")
+        let view = PurchasesInfoLabels(title: "Order ID")
         return view
     }()
     
     lazy var deliverToLabel: PurchasesInfoLabels = {
-        let view = PurchasesInfoLabels(frame: .zero, staticText: "Deliver To", dynamicText: "")
+        let view = PurchasesInfoLabels(title: "Deliver To")
         return view
     }()
     
     lazy var totalPaymentLabel: PurchasesInfoLabels = {
-        let view = PurchasesInfoLabels(frame: .zero, staticText: "Total Payment", dynamicText: "")
+        let view = PurchasesInfoLabels(title: "Total Payment")
         return view
     }()
-    
-    lazy var statusIcon = PurchasesStatusIcon(frame: .zero)
     
     private lazy var infoStack: UIStackView = {
         let view = UIStackView()
@@ -64,37 +60,36 @@ class OrderCell: UITableViewCell {
     // MARK: - init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = UIColor(red: 246/255, green: 246/255, blue: 246/255, alpha: 1)
         
-        view.backgroundColor = .white
-        contentView.addSubview(view)
-        view.alignAllEdgesWithSuperview(side: .allSides, .init(top: 0, left: 0, bottom: -12, right: 0))
+        backgroundColor = .white
         
-        view.addSubview(statusLabel)
-        statusLabel.alignAllEdgesWithSuperview(side: .leading, .init(top: 0, left: 70, bottom: 0, right: 0))
-        statusLabel.alignAllEdgesWithSuperview(side: .top, .init(top: 30, left: 0, bottom: 0, right: 0))
+        separatorView.backgroundColor = #colorLiteral(red: 0.965680182, green: 0.965680182, blue: 0.965680182, alpha: 1)
+        contentView.addSubview(separatorView)
+        separatorView.alignAllEdgesWithSuperview(side: .leadingAndTrailing, .init(top: 0, left: 0, bottom: 0, right: 0))
+        separatorView.alignAllEdgesWithSuperview(side: .bottom, .init(top: 0, left: 0, bottom: 0, right: 0))
+        separatorView.alignAllEdgesWithSuperview(side: .top, .init(top: 320, left: 0, bottom: 0, right: 0))
         
-        view.addSubview(statusIcon)
-        statusIcon.setSize(width: 34, height: 34)
-        statusIcon.alignAllEdgesWithSuperview(side: .leading, .init(top: 0, left: 22, bottom: 0, right: 0))
-        statusIcon.alignAllEdgesWithSuperview(side: .top, .init(top: 22, left: 0, bottom: 0, right: 0))
         
-        view.addSubview(dateLabel)
-        dateLabel.alignAllEdgesWithSuperview(side: .trailing, .init(top: 0, left: 0, bottom: 0, right: -24))
+        addSubview(statusIconLabel)
+        statusIconLabel.alignAllEdgesWithSuperview(side: .leading, .init(top: 0, left: 22, bottom: 0, right: 0))
+        statusIconLabel.alignAllEdgesWithSuperview(side: .top, .init(top: 22, left: 0, bottom: 0, right: 0))
+        
+        addSubview(dateLabel)
+        dateLabel.alignAllEdgesWithSuperview(side: .trailing, .init(top: 0, left: 0, bottom: 0, right: -22))
         dateLabel.alignAllEdgesWithSuperview(side: .top, .init(top: 30, left: 0, bottom: 0, right: 0))
         
         infoStack.addArrangedSubview(orderIDLabel)
         infoStack.addArrangedSubview(deliverToLabel)
         infoStack.addArrangedSubview(totalPaymentLabel)
-        view.addSubview(infoStack)
+        addSubview(infoStack)
         infoStack.setSize(height: 80)
         infoStack.alignAllEdgesWithSuperview(side: .leadingAndTrailing, .init(top: 0, left: 30, bottom: 0, right: -30))
         infoStack.alignAllEdgesWithSuperview(side: .top, .init(top: 90, left: 0, bottom: 0, right: 0))
         
-        view.addSubview(imageStack)
-        imageStack.setSize(width: 382, height: 80)
-        imageStack.alignAllEdgesWithSuperview(side: .top, .init(top: 200, left: 0, bottom: 0, right: 0))
-        imageStack.alignAllEdgesWithSuperview(side: .leading, .init(top: 0, left: 24, bottom: 0, right: 0))
+        addSubview(imageStack)
+        imageStack.setSize(height: 100)
+        imageStack.alignAllEdgesWithSuperview(side: .top, .init(top: 190, left: 0, bottom: 0, right: 0))
+        imageStack.alignAllEdgesWithSuperview(side: .leadingAndTrailing, .init(top: 0, left: 22, bottom: 0, right: -22))
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -102,7 +97,6 @@ class OrderCell: UITableViewCell {
     }
     
     // MARK: - functions
-    
     func formatDate(_ dateString: String) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -117,31 +111,39 @@ class OrderCell: UITableViewCell {
     
     func configurate(order: Order) {
         
-        statusLabel.text = order.status.text
+        statusIconLabel.icon.setImage(imageName: String(order.status.resource_icon))
+        statusIconLabel.label.text = order.status.text
+        
         dateLabel.text = formatDate(order.date)
-        orderIDLabel.dynamicLabel.text = order.code
-        deliverToLabel.dynamicLabel.text = order.address.name
-        totalPaymentLabel.dynamicLabel.text = "$" + String(order.pay)
-        statusIcon.setImage(imageName: String(order.status.resource_icon))
+        orderIDLabel.valueLabel.text = order.code
+        deliverToLabel.valueLabel.text = order.address.name
+        totalPaymentLabel.valueLabel.text = "$" + String(order.pay)
         
         imageStack.arrangedSubviews.forEach({ $0.removeFromSuperview() })
         
-        for (index, product) in order.products.enumerated() {
-            if index == 3 {
-                let image = OrderListImage(frame: .zero, imageName: product.images[0].url, count: product.count)
-                image.setSize(width: 80, height: 80)
-                imageStack.addArrangedSubview(image)
-                
+        for i in 0...order.products.count - 1 {
+            
+            let image = ProductImageView(frame: .zero, imageName: order.products[i].images[0].url, hasCountOfProductLabel: true, count: order.products[i].count)
+            imageStack.addArrangedSubview(image)
+            
+            if i == 3 && order.products.count > 4 {
                 let overlayView = UIView(frame: .zero)
+                image.imageView.addSubview(overlayView)
                 overlayView.setSize(width: image.preferredSize, height: image.preferredSize)
+                overlayView.alignAllEdgesWithSuperview(side: .allSides, .init(top: 0, left: 0, bottom: 0, right: 0))
                 overlayView.backgroundColor = UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 0.5)
                 overlayView.layer.cornerRadius = 18
-                image.imageView.addSubview(overlayView)
-                break
-            } else {
-                let image = OrderListImage(frame: .zero, imageName: product.images[0].url, count: product.count)
-                image.setSize(width: 80, height: 80)
+                
+                let countOfOtherProducts = UILabel(frame: .zero)
+                countOfOtherProducts.setSize(width: image.preferredSize, height: image.preferredSize)
+                countOfOtherProducts.textAlignment = .center
+                countOfOtherProducts.textColor = .white
+                countOfOtherProducts.text = "+" + String(order.products.count - 3)
+                
+                image.countOfProduct.isHidden = true
+                image.imageView.addSubview(countOfOtherProducts)
                 imageStack.addArrangedSubview(image)
+                break
             }
         }
     }

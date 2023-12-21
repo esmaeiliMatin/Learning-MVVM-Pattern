@@ -19,8 +19,8 @@ class OrderViewModel {
         
         fetchData()
     }
+    
     func fetchData() {
         dataset = repository.fetchData().order
-     
     }
 }

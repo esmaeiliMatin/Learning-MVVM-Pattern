@@ -21,25 +21,28 @@ struct Order: Decodable {
     let address: Address
     let products: [Product]
 }
-struct Product: Decodable {
-    let id: Int
-    let name: String
-    let images: [productImage]
-    let count: Int
-}
-struct productImage: Decodable {
-    let url: String
-    let type: String
-    let blurhash: String?
-  
-}
+
 struct Status: Decodable {
     let text: String
     let color: String
     let resource_image: String
     let resource_icon: String
 }
+
 struct Address: Decodable {
     let id: Int
     let name: String
+}
+
+struct Product: Decodable {
+    let id: Int
+    let name: String
+    let images: [ProductImage]
+    let count: Int
+}
+
+struct ProductImage: Decodable {
+    let url: String
+    let type: String
+    let blurhash: String?
 }

@@ -1,5 +1,5 @@
 //
-//  OrderListImage.swift
+//  OrderListImageView.swift
 //  Test-tableView
 //
 //  Created by Matin on 2023-11-20.
@@ -7,12 +7,17 @@
 
 import UIKit
 
-class OrderListImage: UIView {
+class ProductImageView: UIView {
     
-    let preferredSize = 80.0
+    // TODO: add overlay view here and set with bool
+    
+    // MARK: - properties
+    lazy var preferredSize = 80.0
+    lazy var hasCountOfProductLabel = true
     
     lazy var imageView: UIImageView = {
         let view = UIImageView()
+//        view.backgroundColor = .clear
         view.layer.cornerRadius = 18
         view.layer.borderWidth = 1.5
         view.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1).cgColor
@@ -34,25 +39,26 @@ class OrderListImage: UIView {
         return view
     }()
     
+    // MARK: - init
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, imageName: String, hasCountOfProductLabel: Bool, count: Int) {
         super.init(frame: frame)
-    }
-    
-    init(frame: CGRect, imageName: String, count: Int) {
-        super.init(frame: frame)
+        
+        backgroundColor = .clear
         
         imageView.image = UIImage(named: imageName)
         addSubview(imageView)
         imageView.setCenterAnchorToCenterOfSuperview(axis: .horizontal)
         imageView.setCenterAnchorToCenterOfSuperview(axis: .vertical)
         
-        countOfProduct.text = "X" + String(count)
-        addSubview(countOfProduct)
-        countOfProduct.setCenterAnchorToCenterOfSuperview(axis: .horizontal)
-        countOfProduct.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -10).isActive = true
+        if hasCountOfProductLabel == true {
+            countOfProduct.text = "X" + String(count)
+            addSubview(countOfProduct)
+            countOfProduct.setCenterAnchorToCenterOfSuperview(axis: .horizontal)
+            countOfProduct.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -10).isActive = true            
+        }
     }
 }

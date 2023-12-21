@@ -11,21 +11,23 @@ class OrderListViewController: BaseViewController, UITableViewDataSource, UITabl
     
     // MARK: - Property
     lazy var cellReuseIdentifier = "CustomCell"
-    lazy var heightForRowAt = 330.0   //330
+    lazy var heightForRowAt = 330.0
     lazy var vm: OrderViewModel = {
        let repository = OrderRepository()
         let vm = OrderViewModel(repository: repository)
         return vm
     }()
+    
     lazy var navigationTitle = "My Order"
     
     lazy var tableView: UITableView = {
         let view = UITableView()
-        view.backgroundColor = #colorLiteral(red: 0.9719485641, green: 0.9719484448, blue: 0.9719485641, alpha: 1)
+        view.backgroundColor = .white
         view.separatorStyle = .none
         view.allowsSelection = false
         return view
     }()
+    
     lazy var segmentedView = OrderHeaderView()
     
     // MARK: -  view did load
@@ -41,8 +43,6 @@ class OrderListViewController: BaseViewController, UITableViewDataSource, UITabl
         view.addSubview(segmentedView)
         segmentedView.setSize(height: 40)
         segmentedView.alignAllEdgesWithSuperview(side: .top, .init(top: 96, left: 0, bottom: 0, right: 0))
-        segmentedView.alignAllEdgesWithSuperview(side: .leadingAndTrailing, .init(top: 0, left: 0, bottom: 0, right: 0))
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
