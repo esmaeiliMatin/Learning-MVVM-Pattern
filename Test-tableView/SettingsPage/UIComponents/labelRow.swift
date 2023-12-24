@@ -7,7 +7,7 @@
 
 import UIKit
 
-class IconLabelLabelRow: BaseSettingsRow {
+class labelRow: BaseSettingsRow {
     
     private lazy var valueLabel: UILabel = {
         let label = UILabel()

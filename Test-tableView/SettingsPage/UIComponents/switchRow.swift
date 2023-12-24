@@ -7,7 +7,7 @@
 
 import UIKit
 
-class IconLabelSwitchRow: BaseSettingsRow {
+class switchRow: BaseSettingsRow {
     
     lazy var switchButton: UISwitch = {
         let view = UISwitch()

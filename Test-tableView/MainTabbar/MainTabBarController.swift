@@ -1,6 +1,6 @@
 import UIKit
 
-class MainTabBar: UITabBarController, UITabBarControllerDelegate {
+class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +32,6 @@ class MainTabBar: UITabBarController, UITabBarControllerDelegate {
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.boldSystemFont(ofSize: 12.0)
         ]
-//        self.tabBarController?.tabBar.shadowImage = UIImage()
-//        self.tabBarController?.tabBar.backgroundImage = UIImage()
         appearance.setTitleTextAttributes(attributes, for: .normal)
         selectedIndex = 1
         
@@ -41,7 +39,7 @@ class MainTabBar: UITabBarController, UITabBarControllerDelegate {
     }
 }
 
-fileprivate extension MainTabBar {
+fileprivate extension MainTabBarController {
     
     func setCustomTabBar(_ customTabBar: UITabBar) {
         setValue(customTabBar, forKey: "tabBar")

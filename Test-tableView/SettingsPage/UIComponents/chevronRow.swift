@@ -1,6 +1,6 @@
 import UIKit
 
-class IconLabelChevronRow: BaseSettingsRow {
+class chevronRow: BaseSettingsRow {
     
     private lazy var chevronIcon: UIImageView = {
         let view = UIImageView(image: UIImage(systemName: "chevron.forward"))

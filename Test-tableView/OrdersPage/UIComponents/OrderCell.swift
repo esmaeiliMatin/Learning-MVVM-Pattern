@@ -10,13 +10,14 @@ import UIKit
 class OrderCell: UITableViewCell {
     
     // MARK: - Properties
+    
     lazy var separatorView: UIView = {
         let view = UIView()
         return view
     }()
     
     lazy var statusIconLabel: PurchasesStatusIconLabel = {
-       let view = PurchasesStatusIconLabel()
+        let view = PurchasesStatusIconLabel()
         return view
     }()
     
@@ -28,25 +29,8 @@ class OrderCell: UITableViewCell {
         return view
     }()
     
-    lazy var orderIDLabel: PurchasesInfoLabels = {
-        let view = PurchasesInfoLabels(title: "Order ID")
-        return view
-    }()
-    
-    lazy var deliverToLabel: PurchasesInfoLabels = {
-        let view = PurchasesInfoLabels(title: "Deliver To")
-        return view
-    }()
-    
-    lazy var totalPaymentLabel: PurchasesInfoLabels = {
-        let view = PurchasesInfoLabels(title: "Total Payment")
-        return view
-    }()
-    
-    private lazy var infoStack: UIStackView = {
-        let view = UIStackView()
-        view.distribution = .fillEqually
-        view.axis = .horizontal
+    private lazy var detailLabel: OrderDetailsLabel = {
+        let view = OrderDetailsLabel()
         return view
     }()
     
@@ -78,13 +62,10 @@ class OrderCell: UITableViewCell {
         dateLabel.alignAllEdgesWithSuperview(side: .trailing, .init(top: 0, left: 0, bottom: 0, right: -22))
         dateLabel.alignAllEdgesWithSuperview(side: .top, .init(top: 30, left: 0, bottom: 0, right: 0))
         
-        infoStack.addArrangedSubview(orderIDLabel)
-        infoStack.addArrangedSubview(deliverToLabel)
-        infoStack.addArrangedSubview(totalPaymentLabel)
-        addSubview(infoStack)
-        infoStack.setSize(height: 80)
-        infoStack.alignAllEdgesWithSuperview(side: .leadingAndTrailing, .init(top: 0, left: 30, bottom: 0, right: -30))
-        infoStack.alignAllEdgesWithSuperview(side: .top, .init(top: 90, left: 0, bottom: 0, right: 0))
+        addSubview(detailLabel)
+        detailLabel.setSize(width: 370, height: 80)
+        detailLabel.alignAllEdgesWithSuperview(side: .leadingAndTrailing, .init(top: 0, left: 30, bottom: 0, right: -30))
+        detailLabel.alignAllEdgesWithSuperview(side: .top, .init(top: 90, left: 0, bottom: 0, right: 0))
         
         addSubview(imageStack)
         imageStack.setSize(height: 100)
@@ -97,27 +78,13 @@ class OrderCell: UITableViewCell {
     }
     
     // MARK: - functions
-    func formatDate(_ dateString: String) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        if let date = dateFormatter.date(from: dateString) {
-            dateFormatter.dateFormat = "MMM d, yyyy"
-            return dateFormatter.string(from: date)
-        }
-        
-        return nil
-    }
-    
     func configurate(order: Order) {
         
         statusIconLabel.icon.setImage(imageName: String(order.status.resource_icon))
         statusIconLabel.label.text = order.status.text
         
-        dateLabel.text = formatDate(order.date)
-        orderIDLabel.valueLabel.text = order.code
-        deliverToLabel.valueLabel.text = order.address.name
-        totalPaymentLabel.valueLabel.text = "$" + String(order.pay)
+        dateLabel.text = CustomDateFormater.formatDate(order.date)
+        detailLabel.configure(idValue: order.code, deliveryValue: order.address.name, paymentValue: ("$" + String(order.pay)))
         
         imageStack.arrangedSubviews.forEach({ $0.removeFromSuperview() })
         

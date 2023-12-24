@@ -10,10 +10,10 @@ import UIKit
 class SettingsViewController: BaseViewController {
     
     // MARK: - prareties
-    private lazy var vm: SettingsViewModel = {
+    private lazy var viewModel: SettingsViewModel = {
         let repository = SettingsRepository()
-        let vm = SettingsViewModel(repository: repository)
-        return vm
+        let viewModel = SettingsViewModel(repository: repository)
+        return viewModel
     }()
     
     private lazy var scrollView: UIScrollView = {
@@ -30,8 +30,8 @@ class SettingsViewController: BaseViewController {
         view.spacing = 0
         return view
     }()
-    // MARK: - view did load
     
+    // MARK: - view did load
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,17 +42,17 @@ class SettingsViewController: BaseViewController {
         stack.setSize(width: 430)
         stack.alignAllEdgesWithSuperview(side: .allSides, .init(top: 10, left: 0, bottom: 0, right: 0))
         
-        vm.dataset.forEach { model in
+        viewModel.dataset.forEach { model in
             
             let view: BaseSettingsRow
             
             switch model.typeAndValue {
-            case .IconLabelLabelRow(let value):
-                view = IconLabelLabelRow(model: model, value: value)
-            case .IconLabelSwitchRow(let value):
-                view = IconLabelSwitchRow(model: model, value: value)
-            case .IconLabelChevronRow:
-                view = IconLabelChevronRow(model: model)
+            case .labelRow(let value):
+                view = labelRow(model: model, value: value)
+            case .switchRow(let value):
+                view = switchRow(model: model, value: value)
+            case .chevronRow:
+                view = chevronRow(model: model)
             case .unknown:
                 view = BaseSettingsRow(model: model)
             }
@@ -61,17 +61,16 @@ class SettingsViewController: BaseViewController {
             view.setSize(height: BaseSettingsRow.preferredHeight)
         }
         
-        lazy var logout = UIView()
-        lazy var deleteButton = DeleteButton(title: "Log out", iconName: "door.right.hand.open")
+        lazy var logoutButtonContainer = UIView()
+        logoutButtonContainer.setSize(height: 112)
         
-        logout.setSize(height: 112)
-        logout.addSubview(deleteButton)
-        
+        lazy var deleteButton = LogoutButton(title: "Log out", iconName: "door.right.hand.open")
+        logoutButtonContainer.addSubview(deleteButton)
         deleteButton.setSize(width: 360, height: 66)
         deleteButton.setCenterAnchorToCenterOfSuperview(axis: .vertical)
         deleteButton.setCenterAnchorToCenterOfSuperview(axis: .horizontal)
         
-        stack.addArrangedSubview(logout)
+        stack.addArrangedSubview(logoutButtonContainer)
     }
     
     override func viewWillAppear(_ animated: Bool) {

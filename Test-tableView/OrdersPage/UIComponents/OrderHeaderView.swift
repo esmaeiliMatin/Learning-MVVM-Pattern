@@ -9,17 +9,16 @@ import UIKit
 
 class OrderHeaderView: UIView {
     
+    // MARK: - properties
+    lazy var segmentedControl = UISegmentedControl(items: ["All", "On Process", "Previous"])
+    
     lazy var indicator: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 149/255, green: 193/255, blue: 31/255, alpha: 1)
         return view
     }()
     
-    lazy var segmentedControl = UISegmentedControl(items: ["All", "On Process", "Previous"])
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    // MARK: - properties
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +36,10 @@ class OrderHeaderView: UIView {
         segmentedControl.addSubview(indicator)
         
         segmentedControlValueChanged(segmentedControl)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {

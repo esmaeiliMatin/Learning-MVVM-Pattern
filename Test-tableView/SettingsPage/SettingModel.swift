@@ -8,18 +8,21 @@
 import UIKit
 
 enum SettingModelTypeAndValueEnum: Decodable {
-    case IconLabelLabelRow(_ value: String), IconLabelSwitchRow(_ value: Bool), IconLabelChevronRow, unknown
+    case labelRow(_ value: String), switchRow(_ value: Bool), chevronRow, unknown
 }
 
 struct SettingModel: Decodable {
+    
     enum CodingKeys: CodingKey {
         case type, iconName, title, value, switchButton
     }
     
+    // MARK: - properties
     let typeAndValue: SettingModelTypeAndValueEnum
     let iconName: String
     let title: String
     
+    // MARK: - init
     init(from decoder: Decoder) throws {
         
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -28,15 +31,16 @@ struct SettingModel: Decodable {
         title = try container.decode(String.self, forKey: .title)
         
         let type = try container.decode(String.self, forKey: .type)
+        
         switch type {
         case "IconLabelLabelRow":
             let value = try container.decode(String.self, forKey: .value)
-            self.typeAndValue = .IconLabelLabelRow(value)
+            self.typeAndValue = .labelRow(value)
         case "IconLabelSwitchRow":
             let value = try container.decode(Bool.self, forKey: .switchButton)
-            self.typeAndValue = .IconLabelSwitchRow(value)
+            self.typeAndValue = .switchRow(value)
         case "IconLabelChevronRow":
-            self.typeAndValue = .IconLabelChevronRow
+            self.typeAndValue = .chevronRow
         default:
             self.typeAndValue = .unknown
         }

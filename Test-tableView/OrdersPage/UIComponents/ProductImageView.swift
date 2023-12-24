@@ -17,7 +17,6 @@ class ProductImageView: UIView {
     
     lazy var imageView: UIImageView = {
         let view = UIImageView()
-//        view.backgroundColor = .clear
         view.layer.cornerRadius = 18
         view.layer.borderWidth = 1.5
         view.layer.borderColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1).cgColor
@@ -47,6 +46,9 @@ class ProductImageView: UIView {
     init(frame: CGRect, imageName: String, hasCountOfProductLabel: Bool, count: Int) {
         super.init(frame: frame)
         
+        // TODO: set size for view **we have constraint error here**
+        
+        setSize(width: 100, height: 100)
         backgroundColor = .clear
         
         imageView.image = UIImage(named: imageName)
@@ -58,7 +60,7 @@ class ProductImageView: UIView {
             countOfProduct.text = "X" + String(count)
             addSubview(countOfProduct)
             countOfProduct.setCenterAnchorToCenterOfSuperview(axis: .horizontal)
-            countOfProduct.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -10).isActive = true            
+            countOfProduct.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -10).isActive = true           
         }
     }
 }

@@ -2,9 +2,11 @@ import UIKit
 
 class PurchasesStatusIcon: UIView {
     
+    // MARK: - properties
     lazy var name: String = ""
     lazy var uiImageView = UIImageView()
     
+    // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
         

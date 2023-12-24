@@ -19,18 +19,19 @@ protocol BaseSettingRowProtocol where Self: UIView {
 class BaseSettingsRow: UIView {
     
     // MARK: - Properties}
+    let model: SettingModel
+    
+    lazy var icon = UIImageView()
+    
     lazy var label: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         return label
     }()
     
-    lazy var icon = UIImageView()
-    
     public static let preferredHeight: CGFloat = 72.0
     
-    let model: SettingModel
-    
+    // MARK: - init
     init(model: SettingModel) {
         self.model = model
         
@@ -38,15 +39,15 @@ class BaseSettingsRow: UIView {
         
         backgroundColor = .white
         
-        addSubview(label)
-        label.setSize(width: 200)
-        label.setCenterAnchorToCenterOfSuperview(axis: .vertical)
-        label.alignAllEdgesWithSuperview(side: .leading, .init(top: 0, left: 80, bottom: 0, right: 0))
-        
         addSubview(icon)
         icon.setSize(width: 24, height: 24)
         icon.alignAllEdgesWithSuperview(side: .leading, .init(top: 0, left: 30, bottom: 0, right: 0))
         icon.setCenterAnchorToCenterOfSuperview(axis: .vertical)
+        
+        addSubview(label)
+        label.setSize(width: 200)
+        label.setCenterAnchorToCenterOfSuperview(axis: .vertical)
+        label.alignAllEdgesWithSuperview(side: .leading, .init(top: 0, left: 80, bottom: 0, right: 0))
         
         configure(model: model)
     }
@@ -60,5 +61,5 @@ class BaseSettingsRow: UIView {
         label.text = model.title
         icon.image = UIImage(systemName: model.iconName)
         icon.tintColor = .systemGray
-    }   
+    }
 }

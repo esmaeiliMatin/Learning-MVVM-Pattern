@@ -10,6 +10,8 @@ import UIKit
 class PurchasesStatusIconLabel: UIView {
     
     // MARK: - properties
+    lazy var icon = PurchasesStatusIcon()
+    
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
@@ -17,12 +19,9 @@ class PurchasesStatusIconLabel: UIView {
         return label
     }()
     
-    lazy var icon = PurchasesStatusIcon()
-    
     let preferredSize = 34.0
     
     // MARK: - init
-    
     override init(frame: CGRect = .zero) {
         super.init(frame: frame)
         

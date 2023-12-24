@@ -195,42 +195,6 @@
                         }
                     ],
                     "count": 1
-                },
-                {
-                    "id": 81,
-                    "name": "halib guva",
-                    "images": [
-                        {
-                            "url": "image-2",
-                            "type": "image",
-                            "blurhash": null
-                        }
-                    ],
-                    "count": 5
-                },
-                {
-                    "id": 81,
-                    "name": "halib guva",
-                    "images": [
-                        {
-                            "url": "image-4",
-                            "type": "image",
-                            "blurhash": null
-                        }
-                    ],
-                    "count": 14
-                },
-                {
-                    "id": 81,
-                    "name": "halib guva",
-                    "images": [
-                        {
-                            "url": "image-6",
-                            "type": "image",
-                            "blurhash": null
-                        }
-                    ],
-                    "count": 3
                 }
             ]
         }

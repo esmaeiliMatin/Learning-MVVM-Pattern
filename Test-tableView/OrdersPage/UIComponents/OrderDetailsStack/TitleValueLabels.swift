@@ -1,5 +1,5 @@
 //
-//  PurchasesInfoLabels.swift
+//  TitleValueLabels.swift
 //  Test-tableView
 //
 //  Created by Matin on 2023-11-16.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PurchasesInfoLabels: UIView {
+class TitleValueLabels: UIView {
     
     // MARK: - properties
     lazy var titleLabel: UILabel = {
@@ -27,6 +27,7 @@ class PurchasesInfoLabels: UIView {
     }()
     
     // MARK: - init
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
