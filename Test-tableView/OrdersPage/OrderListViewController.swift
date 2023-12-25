@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Dispatch
+import Combine
 
 class OrderListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    // MARK: - Property
+        
+    // MARK: - Properties
+    lazy var cancellables: [AnyCancellable] = []
     lazy var cellReuseIdentifier = "CustomCell"
     lazy var heightForRowAt = 330.0
     lazy var vm: OrderViewModel = {
@@ -43,6 +46,28 @@ class OrderListViewController: BaseViewController, UITableViewDataSource, UITabl
         view.addSubview(segmentedView)
         segmentedView.setSize(height: 40)
         segmentedView.alignAllEdgesWithSuperview(side: .top, .init(top: 96, left: 0, bottom: 0, right: 0))
+        
+        let view = UIActivityIndicatorView()
+        
+        vm.observable.receive(on: DispatchQueue.main).sink(receiveCompletion: { completion in
+            switch completion {
+            case .finished:
+                debugPrint("Observable finisehd!")
+            case .failure(let failure):
+                debugPrint("Observable finisehd with error: \(failure)")
+            }
+        }, receiveValue: { newValue in
+            switch newValue {
+            case .none:
+                debugPrint("None! On Subscribe wanna do stuff!")
+            case .loading:
+                debugPrint("Loading...")
+            case .didLoad(let dataset):
+                debugPrint(dataset)
+//                weak self
+                self.tableView.reloadData()
+            }
+        }).store(in: &cancellables)
     }
     
     override func viewWillAppear(_ animated: Bool) {

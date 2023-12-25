@@ -46,7 +46,7 @@ class ProductImageView: UIView {
     init(frame: CGRect, imageName: String, hasCountOfProductLabel: Bool, count: Int) {
         super.init(frame: frame)
         
-        // TODO: set size for view **we have constraint error here**
+        // TODO: set size for view ** we have constraint error here **
         
         setSize(width: 100, height: 100)
         backgroundColor = .clear

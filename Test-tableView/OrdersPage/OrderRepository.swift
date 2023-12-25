@@ -6,12 +6,17 @@
 //
 
 import UIKit
+import Dispatch
 
 class OrderRepository: ApplicationRepositoryProtocol {
     
     let resourceName = "OrderUIViewModelData"
     
-    func fetchData() -> OrderList {
-        decodedOrderData(resourceName: resourceName)!
+    func fetchData(callback: @escaping (OrderList) -> Void) {
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [self] in
+            let result: OrderList = decodedOrderData(resourceName: resourceName)!
+            callback(result)
+        })
     }
 }

@@ -78,7 +78,7 @@ class OrderCell: UITableViewCell {
     }
     
     // MARK: - functions
-    func configurate(order: Order) {
+    func configurate(order: Orders) {
         
         statusIconLabel.icon.setImage(imageName: String(order.status.resource_icon))
         statusIconLabel.label.text = order.status.text
