@@ -9,10 +9,10 @@ import UIKit
 
 
 struct OrderList: Decodable {
-    let order: [Orders]
+    let order: [Order]
 }
 
-struct Orders: Decodable {
+struct Order: Decodable {
     let id: Int
     let code: String
     let date: String

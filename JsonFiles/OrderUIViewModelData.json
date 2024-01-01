@@ -97,7 +97,7 @@
             "pay": 51.72,
             "status": {
                 "text": "On Process",
-                "color": "#EC2D30",
+                "color": "#F39C12",
                 "resource_image": "Mascot-Submitted",
                 "resource_icon": "circle.dotted"
             },
@@ -175,7 +175,7 @@
             "pay": 68.55,
             "status": {
                 "text": "Finished",
-                "color": "#EC2D30",
+                "color": "#27AE60",
                 "resource_image": "Mascot-Submitted",
                 "resource_icon": "checkmark"
             },

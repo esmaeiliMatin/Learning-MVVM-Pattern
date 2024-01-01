@@ -9,11 +9,8 @@ import UIKit
 
 class ProductImageView: UIView {
     
-    // TODO: add overlay view here and set with bool
-    
     // MARK: - properties
     lazy var preferredSize = 80.0
-    lazy var hasCountOfProductLabel = true
     
     lazy var imageView: UIImageView = {
         let view = UIImageView()
@@ -43,12 +40,10 @@ class ProductImageView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, imageName: String, hasCountOfProductLabel: Bool, count: Int) {
+    init(frame: CGRect = .zero, imageName: String, hasCountOfProductLabel: Bool, count: Int) {
         super.init(frame: frame)
         
-        // TODO: set size for view ** we have constraint error here **
-        
-        setSize(width: 100, height: 100)
+        setSize(width: preferredSize, height: preferredSize)
         backgroundColor = .clear
         
         imageView.image = UIImage(named: imageName)
@@ -60,7 +55,24 @@ class ProductImageView: UIView {
             countOfProduct.text = "X" + String(count)
             addSubview(countOfProduct)
             countOfProduct.setCenterAnchorToCenterOfSuperview(axis: .horizontal)
-            countOfProduct.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -10).isActive = true           
+            countOfProduct.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -10).isActive = true
+        }
+    }
+    
+    func addOverlay(countOfOtherProducts: Int? = nil) {
+        let overlayView = UIView(frame: .zero)
+        imageView.addSubview(overlayView)
+        overlayView.alignAllEdgesWithSuperview(side: .allSides, .init(top: 0, left: 0, bottom: 0, right: 0))
+        overlayView.backgroundColor = UIColor(red: 30/255, green: 30/255, blue: 30/255, alpha: 0.5)
+        overlayView.layer.cornerRadius = 18
+        
+        if let number = countOfOtherProducts {
+            let countOfOtherProductsLabel = UILabel(frame: .zero)
+            imageView.addSubview(countOfOtherProductsLabel)
+            countOfOtherProductsLabel.alignAllEdgesWithSuperview(side: .allSides, .init(top: 0, left: 0, bottom: 0, right: 0))
+            countOfOtherProductsLabel.textAlignment = .center
+            countOfOtherProductsLabel.textColor = .white
+            countOfOtherProductsLabel.text = "+" + String(number)
         }
     }
 }

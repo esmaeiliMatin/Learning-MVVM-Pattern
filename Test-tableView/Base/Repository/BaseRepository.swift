@@ -10,6 +10,7 @@ import Foundation
 protocol ApplicationRepositoryProtocol {
     func readLocalJSONFile(forName name: String) -> Data?
     func decodedData<T: Decodable>(resourceName: String) -> [T]
+    func decodedOrderData<T: Decodable>(resourceName: String) -> T?
 }
 
 extension ApplicationRepositoryProtocol {

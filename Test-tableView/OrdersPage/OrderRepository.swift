@@ -13,10 +13,12 @@ class OrderRepository: ApplicationRepositoryProtocol {
     let resourceName = "OrderUIViewModelData"
     
     func fetchData(callback: @escaping (OrderList) -> Void) {
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: { [self] in
-            let result: OrderList = decodedOrderData(resourceName: resourceName)!
-            callback(result)
-        })
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+            if let result: OrderList = decodedOrderData(resourceName: resourceName) {
+                callback(result)
+            } else {
+                fatalError("Decoding failed for resource: \(resourceName)")
+            }
+        }
     }
 }
