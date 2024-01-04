@@ -6,12 +6,19 @@
 //
 
 import UIKit
+import Dispatch
 
 class SettingsRepository: ApplicationRepositoryProtocol {
     
     let resourceName = "SettingsUIViewModelData"
     
-    func fetchData() -> [SettingModel] {
-        decodedData(resourceName: resourceName)
+    func fetchData(callback: @escaping ((SettingModels) -> Void)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
+            if let result: SettingModels = decodedData(resourceName: resourceName) {
+                callback(result)
+            } else {
+                fatalError("Decoding failed for resource: \(resourceName)")
+            }
+        }
     }
 }

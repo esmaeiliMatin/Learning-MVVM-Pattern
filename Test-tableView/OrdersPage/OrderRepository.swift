@@ -14,7 +14,7 @@ class OrderRepository: ApplicationRepositoryProtocol {
     
     func fetchData(callback: @escaping (OrderList) -> Void) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [self] in
-            if let result: OrderList = decodedOrderData(resourceName: resourceName) {
+            if let result: OrderList = decodedData(resourceName: resourceName) {
                 callback(result)
             } else {
                 fatalError("Decoding failed for resource: \(resourceName)")

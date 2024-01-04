@@ -8,11 +8,11 @@
 import Foundation
 import Combine
 
- protocol OrderViewModelProtocol {
+protocol OrderViewModelProtocol: BaseViewModelProtocol {
     
     var dataset: [Order] { get }
     var filteredDataset: [Order] { get }
     var observable: CurrentValueSubject<OrderViewModelGeneralViewState, Error> { get }
-     
+    
     func fetchData()
 }

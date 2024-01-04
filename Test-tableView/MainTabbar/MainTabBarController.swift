@@ -23,7 +23,10 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         cartPage.view.backgroundColor = .white
         cartPage.tabBarItem = UITabBarItem(title: "Cart", image: UIImage(systemName: "cart"), tag: 2)
         
-        let settingsPage = SettingsViewController()
+//         where should i create viewModels? and inject here?
+        let settingsRepository = SettingsRepository()
+        let settingsViewModel = SettingsViewModel(repository: settingsRepository)
+        let settingsPage = SettingsViewController(viewModel: settingsViewModel)
         settingsPage.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gearshape"), tag: 3)
         
         viewControllers = [homePage, orderListPage, cartPage, settingsPage]

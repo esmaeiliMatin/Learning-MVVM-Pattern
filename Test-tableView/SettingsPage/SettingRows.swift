@@ -11,6 +11,10 @@ enum SettingModelTypeAndValueEnum: Decodable {
     case labelRow(_ value: String), switchRow(_ value: Bool), chevronRow, unknown
 }
 
+struct SettingModels: Decodable {
+    let settingRows: [SettingModel]
+}
+
 struct SettingModel: Decodable {
     
     enum CodingKeys: CodingKey {

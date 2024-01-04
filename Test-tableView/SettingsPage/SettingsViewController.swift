@@ -6,15 +6,14 @@
 //
 
 import UIKit
+import Dispatch
+import Combine
 
 class SettingsViewController: BaseViewController {
     
-    // MARK: - prareties
-    private lazy var viewModel: SettingsViewModel = {
-        let repository = SettingsRepository()
-        let viewModel = SettingsViewModel(repository: repository)
-        return viewModel
-    }()
+    // MARK: - Properties
+    private var viewModel: (any SettingsViewModelProtocol)?
+    private lazy var cancellables: [AnyCancellable] = []
     
     private lazy var scrollView: UIScrollView = {
         let view = UIScrollView()
@@ -24,12 +23,22 @@ class SettingsViewController: BaseViewController {
         return view
     }()
     
-    private lazy var stack: UIStackView = {
+    private lazy var ScrollViewStack: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.spacing = 0
         return view
     }()
+    
+    // MARK: - init
+    init(viewModel: any SettingsViewModelProtocol) {
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel = viewModel
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - view did load
     override func viewDidLoad() {
@@ -38,28 +47,28 @@ class SettingsViewController: BaseViewController {
         view.addSubview(scrollView)
         scrollView.alignAllEdgesWithSuperview(side: .allSides, .init(top: 100, left: 0, bottom: 0, right: 0))
         
-        scrollView.addSubview(stack)
-        stack.setSize(width: 430)
-        stack.alignAllEdgesWithSuperview(side: .allSides, .init(top: 10, left: 0, bottom: 0, right: 0))
+        scrollView.addSubview(ScrollViewStack)
+        ScrollViewStack.setSize(width: UIScreen.main.bounds.width)
+        ScrollViewStack.alignAllEdgesWithSuperview(side: .allSides, .init(top: 10, left: 0, bottom: 0, right: 0))
         
-        viewModel.dataset.forEach { model in
-            
-            let view: BaseSettingsRow
-            
-            switch model.typeAndValue {
-            case .labelRow(let value):
-                view = labelRow(model: model, value: value)
-            case .switchRow(let value):
-                view = switchRow(model: model, value: value)
-            case .chevronRow:
-                view = chevronRow(model: model)
-            case .unknown:
-                view = BaseSettingsRow(model: model)
+        viewModel?.observable.receive(on: DispatchQueue.main).sink(receiveCompletion: { completion in
+            switch completion {
+            case .finished:
+                debugPrint("Observable finisehd!")
+            case .failure(let failure):
+                debugPrint("Observable finisehd with error: \(failure)")
             }
-            
-            stack.addArrangedSubview(view)
-            view.setSize(height: BaseSettingsRow.preferredHeight)
-        }
+        }, receiveValue: { [weak self] newValue in
+            guard let self else { return }
+            switch newValue {
+            case .none:
+                debugPrint("None! On Subscribe wanna do stuff!")
+            case .loading:
+                debugPrint("Loading...")
+            case .didLoad(_):
+                createAndAddEachRow(viewModel: self.viewModel as! SettingsViewModel , stack: ScrollViewStack)
+            }
+        }).store(in: &cancellables)
         
         lazy var logoutButtonContainer = UIView()
         logoutButtonContainer.setSize(height: 112)
@@ -70,7 +79,7 @@ class SettingsViewController: BaseViewController {
         deleteButton.setCenterAnchorToCenterOfSuperview(axis: .vertical)
         deleteButton.setCenterAnchorToCenterOfSuperview(axis: .horizontal)
         
-        stack.addArrangedSubview(logoutButtonContainer)
+        self.ScrollViewStack.addArrangedSubview(logoutButtonContainer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -78,6 +87,33 @@ class SettingsViewController: BaseViewController {
         
         if let tabBarController = self.tabBarController {
             tabBarController.title = "Settings"
+        }
+    }
+    
+    func createAndAddEachRow(viewModel: SettingsViewModel, stack: UIStackView) {
+        
+        viewModel.dataset.forEach { model in
+            
+            var view: BaseSettingsRow
+            
+            switch model.typeAndValue {
+            case .labelRow(let value):
+                view = labelRow(model: model, value: value)
+                view.setSize(height: BaseSettingsRow.preferredHeight)
+                stack.addArrangedSubview(view)
+            case .switchRow(let value):
+                view = switchRow(model: model, value: value)
+                view.setSize(height: BaseSettingsRow.preferredHeight)
+                stack.addArrangedSubview(view)
+            case .chevronRow:
+                view = chevronRow(model: model)
+                view.setSize(height: BaseSettingsRow.preferredHeight)
+                stack.addArrangedSubview(view)
+            case .unknown:
+                view = BaseSettingsRow(model: model)
+                view.setSize(height: BaseSettingsRow.preferredHeight)
+                stack.addArrangedSubview(view)
+            }
         }
     }
 }
